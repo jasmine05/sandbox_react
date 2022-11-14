@@ -1,37 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import AddTaskCard from "./AddTaskCard";
 import "./App.css";
-// import "../node_modules/react-tabs/style/react-tabs.scss";
+import ListItemCard from "./ListItemCard";
+
 function App() {
-  const [count, setCount] = useState(0);
   const types = ["open", "complete"];
   const [active, setActive] = useState(types[0]);
+  const [mockToDoData, setMockToDoData] = useState([]);
 
-  const mockToDoData = [
-    { title: "Clean house", status: "open" },
-    { title: "Wash dishes", status: "open" },
-    { title: "Dentist appointment", status: "complete" },
-    { title: "Gift shopping", status: "open" },
-    { title: "Haufe workshop", status: "open" },
-  ];
+  useEffect(() => {
+    console.log("active", active);
+    setMockToDoData([
+      { title: "Clean house", status: "open" },
+      { title: "Wash dishes", status: "open" },
+      { title: "Dentist appointment", status: "complete" },
+      { title: "Gift shopping", status: "open" },
+      { title: "Haufe workshop", status: "open" },
+    ]);
+  }, [active]);
 
-  const TabStyled = styled.button`
-    padding: 10px 30px;
-    cursor: pointer;
-    opacity: 0.6;
-    background: white;
-    border: 0;
-    outline: 0;
-    border-bottom: 2px solid transparent;
-    transition: ease border-bottom 250ms;
-    ${({ active }) =>
-      active &&
-      `
-  border-bottom: 2px solid black;
-  opacity: 1;
-`}
-  `;
   const Tab = styled.button`
     padding: 10px 30px;
     cursor: pointer;
@@ -57,6 +45,9 @@ function App() {
         </div>
         <div className="cardOutline">
           <p> Task status: {active} </p>
+          <ListItemCard
+            cardData={mockToDoData.filter((data) => data.status === active)}
+          />
         </div>
       </>
     );
