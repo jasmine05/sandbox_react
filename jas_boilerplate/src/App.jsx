@@ -10,7 +10,6 @@ function App() {
   const [mockToDoData, setMockToDoData] = useState([]);
 
   useEffect(() => {
-    console.log("active", active);
     setMockToDoData([
       { title: "Clean house", status: "open" },
       { title: "Wash dishes", status: "open" },

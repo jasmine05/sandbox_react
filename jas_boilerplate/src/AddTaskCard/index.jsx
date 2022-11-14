@@ -15,7 +15,7 @@ function AddTaskCard() {
       <h2>ADD TASK CONTENT</h2>
       <input
         type="text"
-        name="here"
+        name="addItemInput"
         value={newItem}
         onChange={(e) => setNewItem(e.target.value)}
       />
