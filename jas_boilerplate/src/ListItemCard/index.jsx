@@ -12,7 +12,7 @@ function ListItemCard(props) {
       <h2>LIST CARD</h2>
       <div>
         {todoList.map((todo, index) => (
-          <div key={todo.title} style={{ display: "flex" }}>
+          <div key={index} style={{ display: "flex" }}>
             <input
               type="checkbox"
               id={index}
