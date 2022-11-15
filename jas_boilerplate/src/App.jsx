@@ -3,21 +3,15 @@ import styled from "styled-components";
 import AddTaskCard from "./AddTaskCard";
 import "./App.css";
 import ListItemCard from "./ListItemCard";
+import { useSelector, useDispatch } from "react-redux";
+import { FILTER } from "./todoReducer";
 
 function App() {
   const types = ["open", "complete"];
   const [active, setActive] = useState(types[0]);
-  const [mockToDoData, setMockToDoData] = useState([]);
-
-  useEffect(() => {
-    setMockToDoData([
-      { title: "Clean house", status: "open" },
-      { title: "Wash dishes", status: "open" },
-      { title: "Dentist appointment", status: "complete" },
-      { title: "Gift shopping", status: "open" },
-      { title: "Haufe workshop", status: "open" },
-    ]);
-  }, [active]);
+  const allTodos = useSelector((state) => state.todo.allTodos);
+  const filteredTodos = useSelector((state) => state.todo.filteredTodos);
+  const dispatch = useDispatch();
 
   const Tab = styled.button`
     padding: 10px 30px;
@@ -36,7 +30,10 @@ function App() {
             <Tab
               key={type}
               active={active === type}
-              onClick={() => setActive(type)}
+              onClick={() => {
+                setActive(type);
+                dispatch(FILTER(active));
+              }}
             >
               {type}
             </Tab>
@@ -44,9 +41,7 @@ function App() {
         </div>
         <div className="cardOutline">
           <p> Task status: {active} </p>
-          <ListItemCard
-            cardData={mockToDoData.filter((data) => data.status === active)}
-          />
+          <ListItemCard cardData={filteredTodos} />
         </div>
       </>
     );

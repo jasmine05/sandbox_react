@@ -1,17 +1,15 @@
 import { useState } from "react";
 import ListItemCard from "../ListItemCard";
 import { useSelector, useDispatch } from "react-redux";
-import { ADD, REMOVE } from "../todoReducer";
+import { ADD } from "../todoReducer";
 
 function AddTaskCard() {
-  const [todoList, setTodoList] = useState([]);
   const [newItem, setNewItem] = useState("");
-
-  // const allTodos = useSelector((state) => state.todoReducer.allTodos);
+  const allTodos = useSelector((state) => state.todo.allTodos);
   const dispatch = useDispatch();
 
   const addNewItem = () => {
-    setTodoList([...todoList, { title: newItem, status: "open" }]);
+    dispatch(ADD({ title: newItem, status: "open" }));
     setNewItem("");
   };
 
@@ -25,10 +23,7 @@ function AddTaskCard() {
         onChange={(e) => setNewItem(e.target.value)}
       />
       <button onClick={addNewItem}> Add new task</button>
-      <button onClick={() => dispatch(ADD())}> Test reducer ADD</button>
-      <button onClick={() => dispatch(REMOVE())}> Test reducer REMOVE</button>
-      {/* <ListItemCard cardData={allTodos} /> */}
-      <ListItemCard cardData={todoList} />
+      <ListItemCard cardData={allTodos} />
     </div>
   );
 }

@@ -3,7 +3,14 @@ import { createSlice } from "@reduxjs/toolkit";
 export const todoSlice = createSlice({
   name: "todo",
   initialState: {
-    allTodos: [],
+    allTodos: [
+      { title: "Clean house", status: "open" },
+      { title: "Wash dishes", status: "open" },
+      { title: "Dentist appointment", status: "complete" },
+      { title: "Gift shopping", status: "open" },
+      { title: "Haufe workshop", status: "open" },
+    ],
+    filteredTodos: [],
   },
   reducers: {
     ADD: (state, action) => {
@@ -11,13 +18,17 @@ export const todoSlice = createSlice({
       // doesn't actually mutate the state because it uses the Immer library,
       // which detects changes to a "draft state" and produces a brand new
       // immutable state based off those changes
-      console.log("ADD something");
-      //   state.allTodos.push(action.item);
+      state.allTodos.push(action.payload);
     },
     REMOVE: (state) => {
       console.log("REMOVE something");
     },
-    FILTER: (state, action) => {},
+    FILTER: (state, action) => {
+      console.log("FILTER", action.payload);
+      // state.filteredTodos = state.allTodos.filter(
+      //   (data) => data.status === action.payload
+      // );
+    },
   },
 });
 
